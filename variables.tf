@@ -168,3 +168,9 @@ variable "userdata_post_install" {
   default     = ""
   description = "Script to be ran after the GitHub Actions runner is installed on the EC2 instances"
 }
+
+variable "block_device_mappings" {
+  description = "The EC2 instance block device configuration. Takes the following keys: `device_name`, `delete_on_termination`, `volume_type`, `volume_size`, `encrypted`, `iops`"
+  type        = map(string)
+  default     = {}
+}
