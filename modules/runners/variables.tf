@@ -197,7 +197,7 @@ variable "idle_config" {
   type = list(object({
     cron       = string
     timeZone   = number
-    indleCount = number
+    idleCount = number
   }))
   default = []
 }
