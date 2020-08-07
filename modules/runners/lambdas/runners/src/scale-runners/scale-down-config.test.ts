@@ -22,26 +22,18 @@ describe('scaleDownConfig', () => {
 
   describe('Check runners that should be kept idle based on config.', () => {
     it('One active cron configuration', async () => {
-      const scaleDownConfig = getConfig([
-        '* * ' + moment(now).subtract(1, 'hours').hour() + '-' + moment(now).add(1, 'hours').hour() + ' * * *',
-      ]);
+      const scaleDownConfig = getConfig(['* * * * * *']);
       console.log(scaleDownConfig);
       expect(getIdleRunnerCount(scaleDownConfig)).toEqual(DEFAULT_IDLE_COUNT);
     });
 
     it('No active cron configuration', async () => {
-      const scaleDownConfig = getConfig([
-        '* * ' + moment(now).add(4, 'hours').hour() + '-' + moment(now).add(5, 'hours').hour() + ' * * *',
-      ]);
+      const scaleDownConfig = getConfig(['* * * * * ' + ((now.day() + 1) % 7)]);
       expect(getIdleRunnerCount(scaleDownConfig)).toEqual(0);
     });
 
     it('1 of 2 cron configurations be active', async () => {
-      const scaleDownConfig = getConfig([
-        '* * ' + moment(now).add(4, 'hours').hour() + '-' + moment(now).add(5, 'hours').hour() + ' * * *',
-        '* * ' + moment(now).subtract(1, 'hours').hour() + '-' + moment(now).add(1, 'hours').hour() + ' * * *',
-      ]);
-
+      const scaleDownConfig = getConfig(['* * * * * ' + ((now.day() + 1) % 7), '* * * * * ' + (now.day() % 7)]);
       expect(getIdleRunnerCount(scaleDownConfig)).toEqual(DEFAULT_IDLE_COUNT);
     });
   });

@@ -304,7 +304,6 @@ describe('scaleDown', () => {
         environment: environment,
       });
 
-      console.log(RUNNERS_WITH_AUTO_SCALING_CONFIG);
       expect(mockOctokit.apps.getOrgInstallation).toBeCalled();
       expect(terminateRunner).toBeCalledTimes(1);
       for (const toTerminate of RUNNERS_TO_BE_REMOVED_WITH_AUTO_SCALING_CONFIG) {
