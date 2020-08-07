@@ -190,3 +190,9 @@ variable "runner_architecture" {
   type        = string
   default     = "x64"
 }
+
+variable "ssh_key_name" {
+  description = "AWS SSH Key Pair name"
+  type = string
+  default = null
+}

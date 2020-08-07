@@ -61,6 +61,7 @@ resource "aws_launch_template" "runner" {
   image_id      = data.aws_ami.runner.id
   instance_type = var.instance_type
 
+  key_name = var.ssh_key_name
   vpc_security_group_ids = [aws_security_group.runner_sg.id]
 
   tag_specifications {
@@ -91,6 +92,12 @@ resource "aws_security_group" "runner_sg" {
 
   vpc_id = var.vpc_id
 
+  ingress {
+    cidr_blocks = ["0.0.0.0/0"]
+    from_port = 22
+    to_port = 22
+    protocol = "tcp"
+  }
   egress {
     from_port   = 0
     to_port     = 0
