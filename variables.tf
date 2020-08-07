@@ -152,6 +152,12 @@ variable "kms_key_id" {
   type        = string
   default     = null
 }
+
+variable "userdata_template" {
+  description = "Alternative user-data template, replacing the default template"
+  type        = string
+  default     = null
+}
 variable "userdata_pre_install" {
   type        = string
   default     = ""
@@ -167,4 +173,24 @@ variable "aws_ssh_key_name" {
   description = "AWS SSH Key Pair name"
   type = string
   default = null
+}
+
+variable "block_device_mappings" {
+  description = "The EC2 instance block device configuration. Takes the following keys: `device_name`, `delete_on_termination`, `volume_type`, `volume_size`, `encrypted`, `iops`"
+  type        = map(string)
+  default     = {}
+}
+
+variable "ami_filter" {
+  description = "List of maps used to create the AMI filter for the action runner AMI."
+  type        = map(list(string))
+
+  default = {
+    name = ["amzn2-ami-hvm-2.*-x86_64-ebs"]
+  }
+}
+variable "ami_owners" {
+  description = "The list of owners used to select the AMI of action runner instances."
+  type        = list(string)
+  default     = ["amazon"]
 }
