@@ -86,6 +86,8 @@ module "runners" {
 
   userdata_pre_install  = var.userdata_pre_install
   userdata_post_install = var.userdata_post_install
+
+  ssh_key_name = var.aws_ssh_key_name
 }
 
 module "runner_binaries" {

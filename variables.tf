@@ -174,3 +174,9 @@ variable "idle_config" {
   }))
   default = []
 }
+
+variable "aws_ssh_key_name" {
+  description = "AWS SSH Key Pair name"
+  type = string
+  default = null
+}
