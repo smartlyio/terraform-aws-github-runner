@@ -216,3 +216,9 @@ variable "ami_owners" {
   type        = list(string)
   default     = ["amazon"]
 }
+
+variable "aws_ssh_key_name" {
+  description = "AWS SSH Key Pair name"
+  type = string
+  default = null
+}

@@ -217,3 +217,9 @@ variable "enable_ssm_on_runners" {
   description = "Enable to allow access the runner instances for debugging purposes via SSM. Note that this adds additional permissions to the runner instances."
   type        = bool
 }
+
+variable "ssh_key_name" {
+  description = "AWS SSH Key Pair name"
+  type = string
+  default = null
+}
