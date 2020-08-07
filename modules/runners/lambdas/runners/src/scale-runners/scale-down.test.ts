@@ -296,9 +296,24 @@ describe('scaleDown', () => {
       });
     });
 
-    it('Terminate 1 of  runners for org.', async () => {
+    it('Terminate 1 of runners for org.', async () => {
       await scaleDown();
       process.env.ENABLE_ORGANIZATION_RUNNERS = 'true';
+
+      expect(listRunners).toBeCalledWith({
+        environment: environment,
+      });
+
+      expect(mockOctokit.apps.getOrgInstallation).toBeCalled();
+      expect(terminateRunner).toBeCalledTimes(1);
+      for (const toTerminate of RUNNERS_TO_BE_REMOVED_WITH_AUTO_SCALING_CONFIG) {
+        expect(terminateRunner).toHaveBeenCalledWith(toTerminate);
+      }
+    });
+
+    it('Terminate 1 of runners for repo.', async () => {
+      await scaleDown();
+      process.env.ENABLE_ORGANIZATION_RUNNERS = 'false';
 
       expect(listRunners).toBeCalledWith({
         environment: environment,
