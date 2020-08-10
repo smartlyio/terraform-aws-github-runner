@@ -46,7 +46,7 @@ variable "s3_location_runner_binaries" {
 }
 
 variable "block_device_mappings" {
-  description = "The EC2 instance block device configuration. Takes the following keys: `delete_on_termination`, `volume_type`, `volume_size`, `encrypted`, `iops`"
+  description = "The EC2 instance block device configuration. Takes the following keys: `device_name`, `delete_on_termination`, `volume_type`, `volume_size`, `encrypted`, `iops`"
   type        = map(string)
   default     = {}
 }
@@ -76,6 +76,12 @@ variable "ami_owners" {
   description = "The list of owners used to select the AMI of action runner instances."
   type        = list(string)
   default     = ["amazon"]
+}
+
+variable "userdata_template" {
+  description = "Alternative user-data template, replacing the default template"
+  type        = string
+  default     = null
 }
 
 variable "userdata_pre_install" {
@@ -199,4 +205,10 @@ variable "idle_config" {
     idleCount = number
   }))
   default = []
+}
+
+variable "ssh_key_name" {
+  description = "AWS SSH Key Pair name"
+  type = string
+  default = null
 }
